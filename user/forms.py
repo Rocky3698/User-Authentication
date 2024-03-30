@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm,PasswordChangeForm,SetPasswordForm
 
 
 class SignUpForm(UserCreationForm):
@@ -30,3 +30,24 @@ class SignUpForm(UserCreationForm):
         #     'password1':{'required':''},
         #     'password2':{'required':''}
         # }
+
+class ProfileForm(UserChangeForm):
+    password= forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Enter password to save changes'}),label='Password',required=True)
+    class Meta:
+        model = User
+        fields =['username','first_name','last_name','email']
+        help_texts={
+            'username':None
+        }
+
+class PassForm(PasswordChangeForm):
+    new_password1=forms.CharField(label='New password',widget=forms.PasswordInput)
+    class Meta:
+        model = User
+        fields = '__all__'
+        
+class PassForm2(SetPasswordForm):
+    new_password1=forms.CharField(label='New password',widget=forms.PasswordInput)
+    class Meta:
+        model = User
+        fields = '__all__'

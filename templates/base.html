@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid ">
-            <a class="navbar-brand" href="#">Django</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Django</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -24,10 +24,10 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'user_signup' %}">Profile</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'user_profile' %}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_login' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -43,6 +43,9 @@
         </div>
     </nav>
 
+    {% for msg in messages %}
+    <h3 class="text-{{msg.tags}}">{{msg}}</h3>
+    {% endfor %}
     {% block content %}
     {% endblock %}
 
